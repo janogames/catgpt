@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatGPT</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fce4ec;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #chat-container {
+      width: 90%;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #chat-header {
+      background-color: #ff80ab;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.5em;
+    }
+    #chat-box {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #fce4ec;
+    }
+    .message {
+      margin: 10px 0;
+    }
+    .user-message {
+      text-align: right;
+      color: #333;
+    }
+    .cat-response {
+      text-align: left;
+      color: #ff4081;
+      font-style: italic;
+    }
+    #input-area {
+      display: flex;
+      border-top: 1px solid #ddd;
+      background: #fff;
+    }
+    #userInput {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      font-size: 1em;
+    }
+    #send-btn {
+      padding: 10px 20px;
+      background-color: #ff80ab;
+      border: none;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    #send-btn:hover {
+      background-color: #ff4081;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-container">
+    <div id="chat-header">🐾 CatGPT</div>
+    <div id="chat-box"></div>
+    <div id="input-area">
+      <input type="text" id="userInput" />
+      <button id="send-btn" onclick="getCatResponse()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // Array of sarcastic placeholder comments
+    const sarcasticPlaceholders = [
+      "Oh, it's you again. What now?",
+      "Please, entertain me with your question.",
+      "I'm judging your question already.",
+      "Fine, I'll humor you. Ask away.",
+      "This better be important, human.",
+      "Do you ever stop asking questions?",
+      "Go ahead. I might pretend to care.",
+      "What could you possibly want now?",
+      "Speak, but don't expect much.",
+      "Make it quick. My nap is calling."
+    ];
+
+    // Set a random placeholder
+    const userInput = document.getElementById("userInput");
+    userInput.placeholder =
+      sarcasticPlaceholders[Math.floor(Math.random() * sarcasticPlaceholders.length)];
+
+    const responses = [
+      "Meow. That's none of your business.",
+      "I’d help, but I’m busy napping.",
+      "I knocked over your coffee. You’re welcome.",
+      "What's in it for me?",
+      "Feed me first, then we’ll talk.",
+      "Why do humans ask so many questions? Just pet me."
+    ];
+
+    function getCatResponse() {
+      const userInputValue = userInput.value.trim();
+      if (userInputValue === "") return; // Don't respond to empty input
+
+      // Display user's message
+      const chatBox = document.getElementById("chat-box");
+      const userMessage = document.createElement("div");
+      userMessage.className = "message user-message";
+      userMessage.innerText = userInputValue;
+      chatBox.appendChild(userMessage);
+
+      // Generate and display CatGPT response
+      const randomIndex = Math.floor(Math.random() * responses.length);
+      const response = responses[randomIndex];
+      const catMessage = document.createElement("div");
+      catMessage.className = "message cat-response";
+      catMessage.innerText = response;
+      chatBox.appendChild(catMessage);
+
+      // Scroll to the bottom of the chat
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Clear the input field
+      userInput.value = "";
+    }
+  </script>
+</body>
+</html>
